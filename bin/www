@@ -1,0 +1,64 @@
+#! /usr/bin/env node
+
+const http = require('http');
+
+const app = require("../src/app");
+const Interval = require("../src/utils/interval");
+const mail = require("../src/utils/mail");
+const scriptNovel = require("../src/scripting/novel");
+const conf = require("../src/config");
+
+let port = process.env.PORT || 3000;
+app.set("port", port);
+
+// create HTTP server
+const server = http.createServer(app);
+
+// listen on provided port
+server.listen(port);
+
+server.on("error", function (error) {
+  console.log("On Error: ", error);
+  throw error;
+});
+
+server.on("listening", () => {
+  let addr = server.address();
+  let bind = typeof addr === 'string'
+    ? 'pipe ' + addr
+    : 'port ' + addr.port;
+  console.log("On listening: " + bind);
+});
+
+// create schedule
+new Interval({
+  name: "scripting-novel",
+  rule: "0 0 12,19 * * *"
+}).create(async (fireDate) => {
+  console.log("scripting-novel fireDate: " + fireDate);
+
+  // scripting novel chapters which has not scripted.
+  let alreadyRead = "//TODO:get target chapter from file";
+  await scriptNovel.getChaptersAfter(alreadyRead);
+
+  // TODO 读取已有文件，并判断文件大小（< 700 byte 的文件为无效文件）
+
+  // send chapters to kindle.
+  // TODO send chapters which scripted this time only.
+  let message = {
+    from: "'nodemailer' <xxxx@gmail.com>", // sender address
+    to: "xxxx@kindle.com", // list of receivers
+    subject: "[小说]XXXXX", // Subject line
+    text: `Chapter-1\nChapter-2`, // plain text body
+    // html: "<b>Hello world?</b>", // html body
+    attachments: [
+      {
+        path: conf.rootPath + "/download/Chapter-1.txt"
+      },
+      {
+        path: conf.rootPath + "/download/Chapter-2.txt"
+      }
+    ]
+  };
+  mail.send(message).catch(console.error);
+});

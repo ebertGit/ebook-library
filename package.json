@@ -1,0 +1,42 @@
+{
+  "name": "nodedemo",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon ./bin/www",
+    "build": "webpack"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "cheerio": "^1.0.0-rc.12",
+    "ejs": "^3.1.8",
+    "express": "^4.18.2",
+    "http-errors": "^2.0.0",
+    "node-schedule": "^2.1.0",
+    "nodemailer": "^6.8.0",
+    "vue": "^2.7.14",
+    "vuetify": "^2.6.13"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.20.12",
+    "@babel/preset-env": "^7.20.2",
+    "@mdi/font": "^7.1.96",
+    "@mdi/js": "^7.1.96",
+    "babel-loader": "^9.1.2",
+    "css-loader": "^6.7.3",
+    "deepmerge": "^4.2.2",
+    "material-design-icons-iconfont": "^6.7.0",
+    "nodemon": "^2.0.20",
+    "sass": "~1.32",
+    "sass-loader": "^13.2.0",
+    "style-loader": "^3.3.1",
+    "vue-loader": "^15.10.1",
+    "vuetify-loader": "^1.9.2",
+    "webpack": "^5.75.0",
+    "webpack-cli": "^5.0.1"
+  }
+}

@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+  <title>index</title>
+</head>
+
+<body>
+  <div id="app">
+    <v-app style="background-color: aliceblue;">
+      <app-bar></app-bar>
+      <v-main>
+        <div id="library" class="mt-1 mt-lg-5">
+          <ul style="padding: 0; text-align: center;">
+            <% chapterList.forEach(chapter=> { %>
+              <li class="ma-1 ma-sm-2 ma-lg-5" style="display: inline-block; text-align: left;">
+                <card
+                  title="<%= chapter %>"
+                >
+                </card>
+              </li>
+              <% }); %>
+          </ul>
+        </div>
+      </v-main>
+      <br><hr><br>
+      <footer>
+        <%- include('./partials/footer'); %>
+      </footer>
+    </v-app>
+  </div>
+  <script src="/js/main.js"></script>
+</body>
+
+</html>
+
+
+
+
+<!-- 
+  index page(Top page):
+  - search bar
+  - library of books
+    -> click book => forward to content page
+ -->
+
+<!-- 
+  content:
+  - from download folder
+ -->
+
+<!-- 
+  hook(for update library):
+  - after start up
+  - after scripting
+ -->
